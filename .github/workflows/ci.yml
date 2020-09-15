@@ -5,6 +5,7 @@ jobs:
   label:
     runs-on: ubuntu-latest
     steps:
+    - run: echo 1
     - uses: actions/labeler@v2
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
