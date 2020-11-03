@@ -5,4 +5,11 @@ jobs:
   label:
     runs-on: ubuntu-latest
     steps:
-    - run: ${{ secrets.TEST }} 
+    - name: Cache README
+      id: cache_readme
+      uses: actions/cache@v2.1.2
+      with:
+        path: README.md
+        key: v1-${{ hashFiles('**/README') }}
+        restore-keys: |
+          v1-
