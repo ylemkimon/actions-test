@@ -12,4 +12,5 @@ jobs:
         path: README.md
         key: v1-${{ hashFiles('**/README.md') }}
         restore-keys: |
+          v1-${{ hashFiles('**/README.md') }}
           v1-
