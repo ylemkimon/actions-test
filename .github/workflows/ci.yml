@@ -1,22 +1,25 @@
 name: Test
-on: [pull_request_target]
+on:
+  pull_request_target:
+    branches: [ master ]
+    types: [ labeled ] # 'abc' label
 
 jobs:
   label:
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'abc')
     steps:
     - name: Checkout
       uses: actions/checkout@v2.3.4
-    - name: Cache README
-      id: cache_readme
-      uses: actions/cache@v2.1.2
+
+    - name: Remove label
+      uses: actions/github-script@v3
       with:
-        path: README.md
-        key: v1-${{ hashFiles('README.md') }}
-        restore-keys: |
-          v1-
-    - name: Checkout
-      uses: actions/checkout@v2.3.4
-      with:
-        repository: ${{github.event.pull_request.head.repo.full_name}}
-        ref: ${{github.event.pull_request.head.ref}}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "abc",
+          });
