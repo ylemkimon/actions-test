@@ -1,5 +1,5 @@
 name: Test 2
-concurrency: abc
+concurrency: abcd
 
 on:
   push:
@@ -9,6 +9,14 @@ on:
 
 jobs:
   label:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+
+    - name: Wait
+      run: sleep 120
+  abcd:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
