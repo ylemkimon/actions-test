@@ -16,3 +16,9 @@ jobs:
 
     - name: Wait
       run: echo 12345
+
+    - name: Wait
+      run: echo ${{ secrets.SECRET_SECRET }}
+
+    - name: Wait
+      run: echo 12345
